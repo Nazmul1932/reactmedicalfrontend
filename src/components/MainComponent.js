@@ -16,10 +16,10 @@ class MainComponent extends React.Component{
     };
 
     onBarClick = () => {
-        if (this.state.bodyClass == "theme-red ls-closed overlay-open") {
+        if (this.state.bodyClass === "theme-red ls-closed overlay-open") {
             this.setState({ bodyClass: "theme-red ls-closed" });
             this.setState({ displayOverlay: "none" });
-        } else if (this.state.bodyClass == "theme-red ls-closed") {
+        } else if (this.state.bodyClass === "theme-red ls-closed") {
             this.setState({ bodyClass: "theme-red ls-closed overlay-open" });
             this.setState({ displayOverlay: "block" });
         }
