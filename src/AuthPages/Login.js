@@ -105,7 +105,7 @@ class Login extends React.Component {
 
             <div className="login-box">
                 <div className="logo">
-                    <a href="javascript:void(0);">Medical Store Management System</a>
+                    <a href="#">Medical Store Management System</a>
                 </div>
             <div className="card">
                 <div className="body">
