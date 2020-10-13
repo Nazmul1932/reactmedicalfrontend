@@ -65,7 +65,7 @@ class Sidebar extends React.Component{
                                    aria-expanded="true" onClick={this.showLogoutMenu} ref={this.divref}>keyboard_arrow_down</i>
                                 <ul className="dropdown-menu pull-right">
 
-                                    <li><a href="#" className=" waves-effect waves-block"><i
+                                    <li><a href={Config.logoutUrl} className=" waves-effect waves-block" ref={this.divref2}><i
                                         className="material-icons">input</i>Sign Out</a></li>
                                 </ul>
                             </div>
