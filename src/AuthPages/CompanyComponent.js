@@ -1,14 +1,34 @@
 import React from "react";
-import AuthHandler from "../utills/AuthHandler";
 import APIHandler from "../utills/APIHandler";
 
 
 class CompanyComponent extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.formSubmit = this.formSubmit.bind(this);
+    }
+
+    state = {
+        errorResponse: false,
+        errorMessage: "",
+        btnMessage: 0,
+        sendData: false,
+        companyDataList: [],
+        dataLoaded: false,
+    };
+
     async formSubmit(event){
         event.preventDefault();
+        this.setState({ btnMessage: 1 });
         var apiHandler = new APIHandler();
-        apiHandler.saveCompanyData();
+        var response = await apiHandler.saveCompanyData(event.target.name.value, event.target.license_no.value, event.target.address.value,
+            event.target.contact_no.value,  event.target.email.value, event.target.description.value);
+        console.log(response);
+        this.setState({ btnMessage: 0 });
+        this.setState({ errorRes: response.data.error });
+        this.setState({ errorMessage: response.data.message });
+        this.setState({ sendData: true });
     }
 
     render() {
@@ -81,9 +101,25 @@ class CompanyComponent extends React.Component{
 
                                         <br/>
                                         <button type="submit"
-                                                className="btn btn-primary m-t-15 waves-effect btn-block">Add Company
+                                                className="btn btn-primary m-t-15 waves-effect btn-block" disabled={this.state.btnMessage !== 0}>
+                                            {this.state.btnMessage===0?"Add Company":"Adding company please wait..."}
                                         </button>
+                                        <br/>
 
+                                        {this.state.errorResponse===false && this.state.sendData===true ?
+                                            (
+                                                <div className="alert alert-success">
+                                                        <strong>Well Done!!</strong> {this.state.errorMessage}
+                                                </div>
+                                            ):""
+                                        }
+
+                                        {this.state.errorResponse===true && this.state.sendData===true ?(
+                                            <div className="alert alert-danger">
+                                                <strong>OH! Sorry..</strong> {this.state.errorMessage}
+                                            </div>
+                                            ):""
+                                        }
                                     </form>
                                 </div>
                             </div>
