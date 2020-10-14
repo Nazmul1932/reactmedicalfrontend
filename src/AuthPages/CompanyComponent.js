@@ -31,6 +31,17 @@ class CompanyComponent extends React.Component{
         this.setState({ sendData: true });
     }
 
+    componentDidMount() {
+        this.fetchCompanyAll();
+    }
+
+    async fetchCompanyAll(){
+        var apiHandler = new APIHandler();
+        var companyData = await apiHandler.fetchAllCompanyData();
+        console.log(companyData);
+        this.setState({companyDataList: companyData.data.data})
+    }
+
     render() {
         return(
             <section className="content">
@@ -121,6 +132,55 @@ class CompanyComponent extends React.Component{
                                             ):""
                                         }
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row clearfix">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div className="card">
+                                <div className="header">
+                                    <h2>
+                                       All Companies
+                                    </h2>
+
+                                </div>
+                                <div className="body table-responsive">
+                                    <table className="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#ID</th>
+                                            <th>NAME</th>
+                                            <th>LICENSE NO</th>
+                                            <th>ADDRESS</th>
+                                            <th>CONTACT NO</th>
+                                            <th>EMAIL</th>
+                                            <th>DESCRIPTION</th>
+                                            <th>ADDED ON</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {this.state.companyDataList.map((company)=>
+                                            <tr>
+                                                <td>{company.id}</td>
+                                                <td>{company.name}</td>
+                                                <td>{company.license_no}</td>
+                                                <td>{company.address}</td>
+                                                <td>{company.contact_no}</td>
+                                                <td>{company.email}</td>
+                                                <td>{company.description}</td>
+                                                <td>{company.added_on}</td>
+                                                <td>
+                                                    <button className="btn btn-block btn-warning">
+                                                        View
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

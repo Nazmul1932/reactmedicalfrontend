@@ -7,18 +7,30 @@ import {reactLocalStorage} from "reactjs-localstorage";
 class APIHandler{
     async checkLogin(){
         if(AuthHandler.checkTokenExpiry()){
-            var response = await Axios.post(Config.refreshUrl, {refresh:AuthHandler.getRefreshToken()});
-            reactLocalStorage.set("token", response.data.access);
+            try {
+                var response = await Axios.post(Config.refreshUrl, {refresh: AuthHandler.getRefreshToken()});
+                reactLocalStorage.set("token", response.data.access);
+            }catch (error){
+                console.log(error);
+                AuthHandler.logoutUser();
+                window.location = "/";
+            }
         }
     }
     async saveCompanyData(name, license_no, address, contact_no, email, description){
-        this.checkLogin();
+        await this.checkLogin();
 
-        var response = await Axios.post(Config.companyUrl,{name:name, license_no:license_no,address:address,
-            contact_no:contact_no,email:email,description:description},
-            {headers: {Authorization:"Bearer "+ AuthHandler.getLoginToken()}});
+        return await Axios.post(Config.companyUrl, {
+                name: name, license_no: license_no, address: address,
+                contact_no: contact_no, email: email, description: description
+            },
+            {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
+    }
 
-        return response;
+    async fetchAllCompanyData(){
+        await this.checkLogin();
+
+        return await Axios.get(Config.companyUrl, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
 }
 
