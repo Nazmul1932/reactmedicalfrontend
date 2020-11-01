@@ -7,6 +7,11 @@ import HomeComponent from "./AuthPages/HomeComponent";
 import CompanyComponent from "./AuthPages/CompanyComponent";
 import {PrivateRouteNew} from "./utills/PrivateRouteNew";
 import Config from "./utills/Config";
+import CompanyDetailsComponent from "./AuthPages/CompanyDetailsComponent";
+import CompanyAddBankComponent from "./AuthPages/CompanyAddBankComponent";
+import EditCompanyBankComponents from "./AuthPages/EditCompanyBankComponents";
+import AddMedicineComponent from "./AuthPages/AddMedicineComponent";
+import ManageMedicineComponent from "./AuthPages/ManageMedicineComponent";
 
 
 ReactDOM.render(
@@ -14,8 +19,13 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" component={Login}/>
             <Route exact path={Config.logoutUrl} component={Logout}/>
-            <PrivateRouteNew exact path="/home" activepage="0" page={<HomeComponent/>}/>
-            <PrivateRouteNew exact path="/company" activepage="1" page={<CompanyComponent/>}/>
+            <PrivateRouteNew exact path="/home" activepage="0" page={HomeComponent}/>
+            <PrivateRouteNew exact path="/company" activepage="1" page={CompanyComponent}/>
+            <PrivateRouteNew exact path="/company_details/:id" activepage="1" page={CompanyDetailsComponent}/>
+            <PrivateRouteNew exact path="/add_company_bank/:id" activepage="1" page={CompanyAddBankComponent}/>
+            <PrivateRouteNew exact path="/edit_company_bank/:company_id/:id" activepage="1" page={EditCompanyBankComponents}/>
+            <PrivateRouteNew exact path="/add_medicine" activepage="2" page={AddMedicineComponent}/>
+            <PrivateRouteNew exact path="/manage_medicine" activepage="3" page={ManageMedicineComponent}/>
         </Switch>
     </Router>,
     document.getElementById("root")
