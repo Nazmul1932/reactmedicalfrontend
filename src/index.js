@@ -12,6 +12,7 @@ import CompanyAddBankComponent from "./AuthPages/CompanyAddBankComponent";
 import EditCompanyBankComponents from "./AuthPages/EditCompanyBankComponents";
 import AddMedicineComponent from "./AuthPages/AddMedicineComponent";
 import ManageMedicineComponent from "./AuthPages/ManageMedicineComponent";
+import CompanyAccountComponent from "./AuthPages/CompanyAccountComponent";
 
 
 ReactDOM.render(
@@ -26,6 +27,7 @@ ReactDOM.render(
             <PrivateRouteNew exact path="/edit_company_bank/:company_id/:id" activepage="1" page={EditCompanyBankComponents}/>
             <PrivateRouteNew exact path="/add_medicine" activepage="2" page={AddMedicineComponent}/>
             <PrivateRouteNew exact path="/manage_medicine" activepage="3" page={ManageMedicineComponent}/>
+            <PrivateRouteNew exact path="/manage_company_account" activepage="4" page={CompanyAccountComponent}/>
         </Switch>
     </Router>,
     document.getElementById("root")

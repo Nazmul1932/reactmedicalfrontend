@@ -58,6 +58,25 @@ class APIHandler{
             {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
 
+    async saveCompanyTransactionData(company_id, transaction_type, transaction_amt, transaction_date,
+                                     payment_mode)
+    {
+        await this.checkLogin();
+
+        return  await Axios.post(
+            Config.company_account_url,
+            {
+                company_id: company_id,
+                transaction_type: transaction_type,
+                transaction_amt: transaction_amt,
+                transaction_date: transaction_date,
+                payment_mode: payment_mode,
+            },
+            { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+        );
+
+    }
+
     async fetchCompanyBankDetails(id){
         await this.checkLogin();
 
@@ -151,6 +170,11 @@ class APIHandler{
             },
             {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}}
         );
+    }
+    async fetchAllCompanyAccount(){
+        await this.checkLogin();
+
+        return await Axios.get(Config.company_account_url, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
 }
 

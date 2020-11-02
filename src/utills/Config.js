@@ -3,6 +3,7 @@ class Config{
     static refreshUrl = " http://127.0.0.1:8000/api/refresh_token/";
     static companyUrl = " http://127.0.0.1:8000/api/company/";
     static companyBankUrl = " http://127.0.0.1:8000/api/companybank/";
+    static company_account_url = " http://127.0.0.1:8000/api/company_account/";
     static company_only = " http://127.0.0.1:8000/api/company_only/";
     static medicineApiUrl = " http://127.0.0.1:8000/api/medicine/";
     static homeUrl = "/home";
@@ -13,6 +14,7 @@ class Config{
         { index: "1", title: "Company", url: "/company", icons: "assessment" },
         { index: "2", title: "Medicine", url: "/add_medicine", icons: "assessment" },
         { index: "3", title: "Manage Medicine", url: "/manage_medicine", icons: "assessment" },
+        { index: "4", title: "Manage Company Account", url: "/manage_company_account", icons: "assessment" },
     ];
 }
 
