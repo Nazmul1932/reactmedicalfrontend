@@ -56,10 +56,9 @@ class Sidebar extends React.Component{
                             <img src={usericon} width="48" height="48" alt="User"/>
                         </div>
                         <div className="info-container">
-                            <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John
-                                Doe
+                            <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin
                             </div>
-                            <div className="email">john.doe@example.com</div>
+                            <div className="email">admin@iit.du.ac.bd</div>
                             <div className={this.state.defaultClass}>
                                 <i className="material-icons" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="true" onClick={this.showLogoutMenu} ref={this.divref}>keyboard_arrow_down</i>

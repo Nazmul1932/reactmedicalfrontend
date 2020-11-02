@@ -21,7 +21,7 @@ class ManageMedicineComponent extends React.Component {
         this.setState({ btnMessage: 1 });
 
         var apiHandler = new APIHandler();
-        var response = await apiHandler.saveMedicineData(
+        var response = await apiHandler.EditMedicineData(
             event.target.name.value,event.target.medical_typ.value,event.target.buy_price.value,
             event.target.sell_price.value,event.target.c_gst.value, event.target.s_gst.value,
             event.target.batch_no.value,event.target.shelf_no.value,event.target.expire_date.value,
@@ -50,7 +50,7 @@ class ManageMedicineComponent extends React.Component {
     }
 
     RemoveItems = () => {
-        if (this.state.medicinedetails.length !== 1) {
+        if (this.state.medicinedetails.length !== this.state.total_salt_list) {
             this.state.medicinedetails.pop(this.state.medicinedetails.length - 1);
         }
         this.setState({});
@@ -82,40 +82,22 @@ class ManageMedicineComponent extends React.Component {
         console.log(this.state.MedicineDataList[index]);
         this.setState({ medicine_id: this.state.MedicineDataList[index].id });
         this.setState({ name: this.state.MedicineDataList[index].name });
-        this.setState({
-            medical_typ: this.state.MedicineDataList[index].medical_typ,
-        });
+        this.setState({  medical_typ: this.state.MedicineDataList[index].medical_typ, });
         this.setState({ buy_price: this.state.MedicineDataList[index].buy_price });
-        this.setState({
-            sell_price: this.state.MedicineDataList[index].sell_price,
-        });
+        this.setState({sell_price: this.state.MedicineDataList[index].sell_price, });
         this.setState({ c_gst: this.state.MedicineDataList[index].c_gst });
         this.setState({ s_gst: this.state.MedicineDataList[index].s_gst });
         this.setState({ batch_no: this.state.MedicineDataList[index].batch_no });
         this.setState({ shelf_no: this.state.MedicineDataList[index].shelf_no });
-        this.setState({
-            expire_date: this.state.MedicineDataList[index].expire_date,
-        });
+        this.setState({ expire_date: this.state.MedicineDataList[index].expire_date, });
         this.setState({ mfg_date: this.state.MedicineDataList[index].mfg_date });
-        this.setState({
-            company_id: this.state.MedicineDataList[index].company_id,
-        });
-        this.setState({
-            description1: this.state.MedicineDataList[index].description,
-        });
-        this.setState({
-            in_stock_total: this.state.MedicineDataList[index].in_stock_total,
-        });
-        this.setState({
-            qty_in_strip: this.state.MedicineDataList[index].qty_in_strip,
-        });
-        this.setState({
-            total_salt_list: this.state.MedicineDataList[index].medicine_details
-                .length,
-        });
-        this.setState({
-            medicinedetails: this.state.MedicineDataList[index].medicine_details,
-        });
+        this.setState({ company_id: this.state.MedicineDataList[index].company_id, });
+        this.setState({ description1: this.state.MedicineDataList[index].description, });
+        this.setState({ in_stock_total: this.state.MedicineDataList[index].in_stock_total, });
+        this.setState({ qty_in_strip: this.state.MedicineDataList[index].qty_in_strip,});
+        this.setState({total_salt_list: this.state.MedicineDataList[index].medicine_details .length });
+        this.setState({medicinedetails: this.state.MedicineDataList[index].medicine_details,});
+
     }
 
     render() {
@@ -211,12 +193,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="name"
-                                                    name="name"
-                                                    className="form-control"
-                                                    placeholder="Enter Name"
-                                                    defaultValue={this.state.name}
+                                                    type="text" id="name" name="name"  className="form-control"
+                                                    placeholder="Enter Name" defaultValue={this.state.name}
                                                 />
                                             </div>
                                         </div>
@@ -224,12 +202,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="medical_typ"
-                                                    name="medical_typ"
-                                                    className="form-control"
-                                                    placeholder="Enter Medicine Type"
-                                                    defaultValue={this.state.medical_typ}
+                                                    type="text" id="medical_typ"  name="medical_typ" className="form-control"
+                                                    placeholder="Enter Medicine Type"  defaultValue={this.state.medical_typ}
                                                 />
                                             </div>
                                         </div>
@@ -237,11 +211,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="buy_price"
-                                                    name="buy_price"
-                                                    className="form-control"
-                                                    placeholder="Enter Buy Price"
+                                                    type="text"  id="buy_price"  name="buy_price"
+                                                    className="form-control"  placeholder="Enter Buy Price"
                                                     defaultValue={this.state.buy_price}
                                                 />
                                             </div>
@@ -250,11 +221,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="sell_price"
-                                                    name="sell_price"
-                                                    className="form-control"
-                                                    placeholder="Enter Sell Price"
+                                                    type="text" id="sell_price"  name="sell_price"
+                                                    className="form-control" placeholder="Enter Sell Price"
                                                     defaultValue={this.state.sell_price}
                                                 />
                                             </div>
@@ -263,11 +231,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="c_gst"
-                                                    name="c_gst"
-                                                    className="form-control"
-                                                    placeholder="Enter C-GST"
+                                                    type="text"  id="c_gst" name="c_gst"
+                                                    className="form-control" placeholder="Enter C-GST"
                                                     defaultValue={this.state.c_gst}
                                                 />
                                             </div>
@@ -276,12 +241,8 @@ class ManageMedicineComponent extends React.Component {
                                         <div className="form-group">
                                             <div className="form-line">
                                                 <input
-                                                    type="text"
-                                                    id="s_gst"
-                                                    name="s_gst"
-                                                    className="form-control"
-                                                    placeholder="Enter S-GST"
-                                                    defaultValue={this.state.s_gst}
+                                                    type="text" id="s_gst" name="s_gst" className="form-control"
+                                                    placeholder="Enter S-GST" defaultValue={this.state.s_gst}
                                                 />
                                             </div>
                                         </div>
@@ -482,8 +443,8 @@ class ManageMedicineComponent extends React.Component {
                                             disabled={this.state.btnMessage !== 0}
                                         >
                                             {this.state.btnMessage === 0
-                                                ? "Add Medicine"
-                                                : "Adding Medicine Please Wait.."}
+                                                ? "Edit Medicine"
+                                                : "Updating Medicine Please Wait.."}
                                         </button>
                                         <br />
                                         {this.state.errorRes === false &&
