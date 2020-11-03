@@ -13,6 +13,7 @@ import EditCompanyBankComponents from "./AuthPages/EditCompanyBankComponents";
 import AddMedicineComponent from "./AuthPages/AddMedicineComponent";
 import ManageMedicineComponent from "./AuthPages/ManageMedicineComponent";
 import CompanyAccountComponent from "./AuthPages/CompanyAccountComponent";
+import EmployeeComponent from "./AuthPages/EmployeeComponent";
 
 
 ReactDOM.render(
@@ -28,6 +29,7 @@ ReactDOM.render(
             <PrivateRouteNew exact path="/add_medicine" activepage="2" page={AddMedicineComponent}/>
             <PrivateRouteNew exact path="/manage_medicine" activepage="3" page={ManageMedicineComponent}/>
             <PrivateRouteNew exact path="/manage_company_account" activepage="4" page={CompanyAccountComponent}/>
+            <PrivateRouteNew exact path="/employee_manage" activepage="5" page={EmployeeComponent}/>
         </Switch>
     </Router>,
     document.getElementById("root")

@@ -15,6 +15,7 @@ class Config{
         { index: "2", title: "Medicine", url: "/add_medicine", icons: "assessment" },
         { index: "3", title: "Manage Medicine", url: "/manage_medicine", icons: "assessment" },
         { index: "4", title: "Manage Company Account", url: "/manage_company_account", icons: "assessment" },
+        { index: "5", title: "Manage Company Employee", url: "/employee_manage", icons: "assessment" },
     ];
 }
 
