@@ -77,6 +77,23 @@ class APIHandler{
 
     }
 
+    async saveEmployeeData(name, joining_date, phone, address)
+    {
+        await this.checkLogin();
+
+        return  await Axios.post(
+            Config.employee_api_only,
+            {
+                name: name,
+                joining_date: joining_date,
+                phone: phone,
+                address: address,
+            },
+            { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+        );
+
+    }
+
     async fetchCompanyBankDetails(id){
         await this.checkLogin();
 
@@ -99,6 +116,14 @@ class APIHandler{
 
         return await Axios.get(Config.company_only, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
+
+    async fetchEmployee(){
+        await this.checkLogin();
+
+        return await Axios.get(Config.employee_api_only, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
+    }
+
+
 
     async saveMedicineData(
         name, medical_typ,buy_price,sell_price, c_gst, s_gst,batch_no,shelf_no,

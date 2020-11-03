@@ -14,18 +14,17 @@ class EmployeeComponent extends React.Component{
         errorMessage: "",
         btnMessage: 0,
         sendData: false,
-        companyAccountData: [],
+        employee_list: [],
         dataLoaded: false,
-        companylist: [],
     };
 
     async formSubmit(event){
         event.preventDefault();
         this.setState({ btnMessage: 1 });
         var apiHandler = new APIHandler();
-        var response = await apiHandler.saveCompanyTransactionData(
-            event.target.company_id.value, event.target.transaction_type.value,
-            event.target.transaction_amt.value, event.target.transaction_date.value,  event.target.payment_mode.value
+        var response = await apiHandler.saveEmployeeData(
+            event.target.name.value, event.target.joining_date.value,
+            event.target.phone.value, event.target.address.value
         );
 
         console.log(response);
@@ -33,18 +32,21 @@ class EmployeeComponent extends React.Component{
         this.setState({ errorRes: response.data.error });
         this.setState({ errorMessage: response.data.message });
         this.setState({ sendData: true });
-        this.updateAccountData();
+        this.updateData();
     }
 
     componentDidMount() {
-        this.fetchCompanyAccountData();
+        this.fetchCompanyEmployeeData();
     }
 
-    async fetchCompanyAccountData(){
+    async fetchCompanyEmployeeData(){
+        this.updateData();
+
+    }
+    async updateData(){
         var apiHandler = new APIHandler();
-        var companyData = await apiHandler.fetchCompanyOnly();
-        this.updateAccountData();
-        this.setState({companylist: companyData.data})
+        var employee_data_list = await apiHandler.fetchEmployee();
+        this.setState({employee_list:employee_data_list.data.data})
         this.setState({dataLoaded:true});
     }
 
@@ -54,95 +56,61 @@ class EmployeeComponent extends React.Component{
         this.props.history.push("/company_details/" +company_id);
     }
 
-    async updateAccountData(){
-        var apiHandler = new APIHandler();
-        var companyAccountData = await apiHandler.fetchAllCompanyAccount();
-        this.setState({companyAccountData:companyAccountData.data.data})
-    }
+
 
     render() {
         return(
             <section className="content">
                 <div className="container-fluid">
                     <div className="block-header">
-                        <h2>Manage Company Account</h2>
+                        <h2>Manage Employee</h2>
                     </div>
                     <div className="row clearfix">
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div className="card">
                                 <div className="header">
-                                    <h2> Add Company Account Bill</h2>
+                                    <h2> Add Company Employee</h2>
                                 </div>
                                 <div className="body">
-                                    <form   onSubmit={this.formSubmit}>
+                                    <form  onSubmit={this.formSubmit}>
                                         <div className="row">
-                                            <div className="col-lg-4">
-                                                <label htmlFor="email_address">Company</label>
+                                            <div className="col-lg-6">
+                                                <label htmlFor="email_address">Name</label>
                                                 <div className="form-group">
                                                     <div className="form-line">
-                                                        <select
-                                                            className="form-control show-tick"
-                                                            name="company_id"
-                                                            id="company_id"
-                                                        >
-                                                            {this.state.companylist.map((item) => (
-                                                                <option key={item.id} value={item.id}  selected={
-                                                                    item.id === this.state.company_id
-                                                                }>
-                                                                    {item.name}
-                                                                </option>
-                                                            ))}
-                                                        </select>
+                                                        <input type="text" id="name" name="name" className="form-control"
+                                                               placeholder="Enter Employee Name"/>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="col-lg-4">
-                                                <label htmlFor="email_address">Transaction Type</label>
+
+
+                                            <div className="col-lg-6">
+                                                <label htmlFor="email_address">Joining Date</label>
                                                 <div className="form-group">
                                                     <div className="form-line">
-                                                        <select
-                                                            id="transaction_type"
-                                                            name="transaction_type"
-                                                            className="form-control"
-                                                        >
-                                                            <option value="1">Debit</option>
-                                                            <option value="2">Credit</option>
-                                                        </select>
+                                                        <input type="date" id="joining_date" name="joining_date" className="form-control"
+                                                               placeholder="Enter Joining Date"/>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="col-lg-4">
-                                                <label htmlFor="email_address">Transaction Amount</label>
+                                            <div className="col-lg-6">
+                                                <label htmlFor="email_address">Phone</label>
                                                 <div className="form-group">
                                                     <div className="form-line">
-                                                        <input type="text" id="transaction_amt" name="transaction_amt" className="form-control"
-                                                               placeholder="Enter Transaction Amount"/>
+                                                        <input type="text" id="phone" name="phone" className="form-control"
+                                                               placeholder="Enter Employee Phone No"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-
-                                        <div className="row">
-                                            <div className="col-lg-4">
-                                                <label htmlFor="email_address">Transaction Date</label>
+                                            <div className="col-lg-6">
+                                                <label htmlFor="email_address">Address</label>
                                                 <div className="form-group">
                                                     <div className="form-line">
-                                                        <input type="date" id="transaction_date" name="transaction_date" className="form-control"
-                                                               placeholder="Enter Transaction Date"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-lg-4">
-
-                                                <label htmlFor="email_address">Payment Mode</label>
-                                                <div className="form-group">
-                                                    <div className="form-line">
-                                                        <input type="text" id="payment_mode" name="payment_mode" className="form-control"
-                                                               placeholder="Enter Payment Mode"/>
+                                                        <input type="text" id="address" name="address" className="form-control"
+                                                               placeholder="Enter Employee Address"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,8 +120,8 @@ class EmployeeComponent extends React.Component{
                                         <br/>
                                         <button type="submit"
                                                 className="btn btn-primary m-t-15 waves-effect btn-block" disabled={this.state.btnMessage !== 0}>
-                                            {this.state.btnMessage===0?"Add Company Transaction":
-                                                "Adding Company Transaction please wait..."}
+                                            {this.state.btnMessage===0?"Add Company Employee":
+                                                "Adding Company Employee please wait..."}
                                         </button>
                                         <br/>
 
@@ -195,9 +163,7 @@ class EmployeeComponent extends React.Component{
                                             </div>
                                         </div>
                                     ):""}
-                                    <h2>
-                                        All Companies Account Transactions
-                                    </h2>
+                                    <h2>All Employee</h2>
 
                                 </div>
                                 <div className="body table-responsive">
@@ -205,36 +171,24 @@ class EmployeeComponent extends React.Component{
                                         <thead>
                                         <tr>
                                             <th>#ID</th>
-                                            <th>COMPANY ID</th>
-                                            <th>COMPANY NAME</th>
-                                            <th>TRANSACTION TYPE</th>
-                                            <th>TRANSACTION AMOUNT</th>
-                                            <th>DATE</th>
-                                            <th>PAYMENT MODE</th>
+                                            <th>NAME</th>
+                                            <th>JOINING DATE</th>
+                                            <th>PHONE</th>
+                                            <th>ADDRESS</th>
                                             <th>ADDED ON</th>
                                             <th>ACTION</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {this.state.companyAccountData.map((company_account)=>
-                                            <tr key={company_account.id}>
-                                                <td>{company_account.id}</td>
-                                                <td>{company_account.company.id}</td>
-                                                <td>{company_account.company.name}</td>
-                                                <td>
-                                                    {company_account.transaction_type === 1
-                                                        ? "Debit"
-                                                        : "Credit"}
-                                                </td>
-                                                <td>{company_account.transaction_amt}</td>
-                                                <td>{company_account.transaction_date}</td>
-                                                <td>{company_account.payment_mode}</td>
-                                                <td>{new Date(company_account.added_on).toLocaleString()}</td>
-                                                <td>
-                                                    <button className="btn btn-block btn-warning" onClick={()=>this.viewCompanyDetails(company_account.id)}>
-                                                        View
-                                                    </button>
-                                                </td>
+                                        {this.state.employee_list.map((employee)=>
+                                            <tr key={employee.id}>
+                                                <td>{employee.id}</td>
+                                                <td>{employee.name}</td>
+                                                <td>{employee.joining_date}</td>
+                                                <td>{employee.phone}</td>
+                                                <td>{employee.address}</td>
+                                                <td>{new Date(employee.added_on).toLocaleString()}</td>
+                                                <td><button className="btn btn-block btn-warning">View</button></td>
                                             </tr>
                                         )}
                                         </tbody>
