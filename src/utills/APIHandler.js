@@ -50,8 +50,8 @@ class APIHandler{
     }
 
     async saveCompanyBankData(bank_account_no, ifsc_no, company_id){
-        await this.checkLogin();
 
+        await this.checkLogin();
         return await Axios.post(Config.companyBankUrl, {
                 bank_account_no: bank_account_no, ifsc_no: ifsc_no, company_id: company_id,
             },
@@ -123,17 +123,14 @@ class APIHandler{
         return await Axios.get(Config.employee_api_only, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
 
-
-
     async saveMedicineData(
-        name, medical_typ,buy_price,sell_price, c_gst, s_gst,batch_no,shelf_no,
-        expire_date,mfg_date,company_id,description,in_stock_total,qty_in_strip,
-        medicinedetails
+        name, medical_typ,buy_price,sell_price, c_gst, s_gst,batch_no,shelf_no, expire_date,mfg_date,company_id,
+        description,in_stock_total,qty_in_strip, medicinedetails
     ) {
         await this.checkLogin();
         //Wait Until Token Get Updated
 
-        var response = await Axios.post(
+        return  await Axios.post(
             Config.medicineApiUrl,
             {
                 name: name, medical_typ: medical_typ,buy_price: buy_price,sell_price: sell_price,
@@ -143,8 +140,6 @@ class APIHandler{
             },
             { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
         );
-
-        return response;
     }
 
     async FetchMedicineAll(){
@@ -154,22 +149,8 @@ class APIHandler{
     }
 
     async EditMedicineData(
-        name,
-        medical_typ,
-        buy_price,
-        sell_price,
-        c_gst,
-        s_gst,
-        batch_no,
-        shelf_no,
-        expire_date,
-        mfg_date,
-        company_id,
-        description,
-        in_stock_total,
-        qty_in_strip,
-        medicinedetails,
-        id
+        name, medical_typ, buy_price,sell_price, c_gst, s_gst,batch_no,shelf_no, expire_date, mfg_date,company_id,
+        description, in_stock_total, qty_in_strip,medicinedetails,id
     ) {
         await this.checkLogin();
         //Wait Until Token Get Updated
@@ -201,6 +182,81 @@ class APIHandler{
 
         return await Axios.get(Config.company_account_url, {headers: {Authorization: "Bearer " + AuthHandler.getLoginToken()}});
     }
+
+
+    async editEmployeeData(name, joining_date, phone, address, id) {
+        await this.checkLogin();
+
+        return  await Axios.put(
+            Config.employee_api_only + "" + id + "/",
+            {
+                name: name,
+                joining_date: joining_date,
+                phone: phone,
+                address: address,
+            },
+            { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+        );
+
+    }
+
+
+    async AddEmployeeSalaryData(salary_date, salary_amount, employee_id) {
+        await this.checkLogin();
+        return  await Axios.post(
+            Config.employeeSalaryApiUrl,
+            {
+                salary_date: salary_date,
+                salary_amount: salary_amount,
+                employee_id: employee_id,
+            },
+            { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+        );
+
+
+    }
+
+    async AddEmployeeBankData(bank_account_no, ifsc_no, employee_id) {
+        await this.checkLogin();
+        return  await Axios.post(
+            Config.employeeBankApiUrl,
+            {
+                bank_account_no: bank_account_no,
+                ifsc_no: ifsc_no,
+                employee_id: employee_id,
+            },
+            { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+        );
+
+    }
+
+    async fetchBankEmployee(id) {
+        await this.checkLogin();
+
+        return  await Axios.get(Config.employeeBankApiUrlBYID + "" + id, {
+            headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+        });
+
+    }
+
+    async fetchSalaryEmployee(id) {
+        await this.checkLogin();
+
+        return  await Axios.get(Config.employeeSalaryByIdApiUrl + "" + id, {
+            headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+        });
+
+    }
+
+    async fetchEmployeeById(id) {
+        await this.checkLogin();
+
+        return  await Axios.get(Config.employee_api_only + "" + id + "/", {
+            headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+        });
+
+    }
+
 }
 
 export default APIHandler;

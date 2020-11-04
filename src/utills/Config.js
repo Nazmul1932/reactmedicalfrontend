@@ -9,6 +9,11 @@ class Config{
     static medicineApiUrl = " http://127.0.0.1:8000/api/medicine/";
     static homeUrl = "/home";
     static logoutUrl = "/logout";
+    static employeeBankApiUrl = "http://127.0.0.1:8000/api/employee_bank/";
+    static employeeBankApiUrlBYID =  "http://127.0.0.1:8000/api/employee_bank_by_id/";
+    static employeeSalaryApiUrl =  "http://127.0.0.1:8000/api/employee_salary/";
+    static employeeSalaryByIdApiUrl = "http://127.0.0.1:8000/api/employee_salary_by_id/";
+
 
     static sidebarItem = [
         { index: "0", title: "Home", url: "/home", icons: "home" },
@@ -17,6 +22,12 @@ class Config{
         { index: "3", title: "Manage Medicine", url: "/manage_medicine", icons: "assessment" },
         { index: "4", title: "Manage Company Account", url: "/manage_company_account", icons: "assessment" },
         { index: "5", title: "Manage Company Employee", url: "/employee_manage", icons: "assessment" },
+        {
+            index: "6",
+            title: "Generate Bill",
+            url: "/generateBill",
+            icons: "assessment",
+        },
     ];
 }
 
