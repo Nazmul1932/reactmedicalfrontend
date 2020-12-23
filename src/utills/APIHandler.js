@@ -257,6 +257,17 @@ class APIHandler{
 
     }
 
+    async fetchMedicineByName(name){
+        if (name!==""){
+            await this.checkLogin();
+            return await Axios.get(Config.medicineNameApiUrl+" "+name,{
+                headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+            });
+        }else{
+            return {data:[]}
+        }
+    }
+
 }
 
 export default APIHandler;
